@@ -240,6 +240,23 @@ document.addEventListener('DOMContentLoaded', () => {
         cargarDashboard();
     });
     
-    // Auto-actualización cada 30 segundos
-    setInterval(cargarDashboard, 30000);
+    // Auto-actualización cada 30 segundos (solo cuando la página está visible)
+    let intervalId = setInterval(cargarDashboard, 30000);
+    
+    // Pausar actualizaciones cuando la pestaña no está visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            // Pausar actualizaciones
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+        } else {
+            // Reanudar actualizaciones y cargar datos inmediatamente
+            cargarDashboard();
+            if (!intervalId) {
+                intervalId = setInterval(cargarDashboard, 30000);
+            }
+        }
+    });
 });

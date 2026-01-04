@@ -74,6 +74,7 @@ export class WebUIServer {
         const data = await this.obtenerDatosDashboard();
         res.json(data);
       } catch (error) {
+        console.error('Error al obtener datos del dashboard:', error);
         res.status(500).json({ error: 'Error al obtener datos del dashboard' });
       }
     });
@@ -83,6 +84,7 @@ export class WebUIServer {
         const pedidos = await this.servicioPedidos.obtenerTodos();
         res.json(pedidos);
       } catch (error) {
+        console.error('Error al obtener pedidos:', error);
         res.status(500).json({ error: 'Error al obtener pedidos' });
       }
     });
@@ -92,6 +94,7 @@ export class WebUIServer {
         const inventario = await this.servicioInventario.obtenerTodos();
         res.json(inventario);
       } catch (error) {
+        console.error('Error al obtener inventario:', error);
         res.status(500).json({ error: 'Error al obtener inventario' });
       }
     });
@@ -101,6 +104,7 @@ export class WebUIServer {
         const clientes = await this.servicioClientes.obtenerTodos();
         res.json(clientes);
       } catch (error) {
+        console.error('Error al obtener clientes:', error);
         res.status(500).json({ error: 'Error al obtener clientes' });
       }
     });
@@ -110,6 +114,7 @@ export class WebUIServer {
         const rutas = await this.servicioRutas.obtenerTodas();
         res.json(rutas);
       } catch (error) {
+        console.error('Error al obtener rutas:', error);
         res.status(500).json({ error: 'Error al obtener rutas' });
       }
     });
@@ -121,6 +126,7 @@ export class WebUIServer {
         const resumen = await this.servicioFinanzas.generarResumen(inicioMes, hoy);
         res.json(resumen);
       } catch (error) {
+        console.error('Error al obtener datos financieros:', error);
         res.status(500).json({ error: 'Error al obtener datos financieros' });
       }
     });
@@ -130,6 +136,7 @@ export class WebUIServer {
         const reporte = await this.servicioMarketing.generarReporteInteligencia();
         res.json(reporte);
       } catch (error) {
+        console.error('Error al obtener datos de marketing:', error);
         res.status(500).json({ error: 'Error al obtener datos de marketing' });
       }
     });
