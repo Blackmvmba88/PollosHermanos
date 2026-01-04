@@ -15,6 +15,8 @@ Sistema tecnológico y operativo modular para pollerías y negocios de distribuc
 - **Base de Datos de Clientes**: Registro completo con historial de compras y gestión de crédito
 - **Rutas de Entrega**: Planificación y optimización de rutas con seguimiento en tiempo real
 - **Seguimiento Financiero**: Registro de transacciones, reportes de ingresos/egresos y balance
+- **Marketing y Conversión**: Análisis de clientes, detección de potencial y estrategias de conversión a mayoristas
+- **Expansión Vertical**: Evaluación de oportunidades productivas y planificación de integración vertical
 - **Arquitectura Limpia**: Código modular, escalable y fácil de mantener
 - **Mobile-First**: Diseñado para operaciones móviles y en campo
 
@@ -226,6 +228,55 @@ const resumen = await servicioFinanzas.generarResumen(
 console.log(`Balance: $${resumen.balance}`);
 ```
 
+### 6. Marketing y Conversión (ServicioMarketing)
+
+```typescript
+// Analizar cliente para detectar potencial de conversión
+const analisis = await servicioMarketing.analizarCliente(idCliente);
+
+console.log(`Potencial: ${analisis.potencialConversion}`);
+console.log(`Puntaje: ${analisis.puntaje}/100`);
+console.log(`Recomendaciones: ${analisis.recomendaciones.length}`);
+
+// Análisis de demanda por zona geográfica
+const analisisZonas = await servicioMarketing.analizarDemandaPorZona();
+
+// Obtener clientes con alto potencial
+const clientesPotenciales = await servicioMarketing.obtenerClientesPotenciales();
+
+// Evaluar producción propia vs compra externa
+const evaluacion = servicioMarketing.evaluarProduccionPropia(
+  demandaAnualKg,
+  precioCompraKg,
+  costoProduccionKg,
+  inversionInicial,
+  costosOperacionalesMensuales
+);
+
+// Crear oportunidad de expansión vertical
+const oportunidad = await servicioMarketing.crearOportunidadExpansion(
+  'Adquisición de Granja Avícola',
+  'Inversión en producción propia',
+  TipoActivoProductivo.ANIMALES,
+  proyeccion,
+  evaluacion,
+  ubicacion
+);
+
+// Generar reporte de inteligencia de mercado
+const reporte = await servicioMarketing.generarReporteInteligencia();
+```
+
+**Funcionalidades Clave:**
+- Análisis de patrones de demanda y comportamiento de compra
+- Clasificación automática de potencial de conversión
+- Identificación de candidatos a mayoristas y distribuidores
+- Análisis geográfico de mercado por zona
+- Evaluación financiera de integración vertical
+- Planificación de activos productivos (terrenos, granjas, equipamiento)
+- Comparativa producción propia vs compra externa
+- Inteligencia de mercado para decisiones estratégicas
+
 ## 🔧 Configuración
 
 El sistema actualmente usa repositorios en memoria para facilitar el desarrollo y testing. Para usar persistencia real:
@@ -265,6 +316,9 @@ El sistema actualmente usa repositorios en memoria para facilitar el desarrollo 
 - ✅ Sistema de demostración completo
 - ✅ Arquitectura limpia implementada
 - ✅ Documentación técnica completa
+- ✅ Módulo de Marketing y Conversión
+- ✅ Módulo de Expansión Vertical
+- ✅ Análisis de inteligencia de mercado
 
 ### Próximas Fases
 
