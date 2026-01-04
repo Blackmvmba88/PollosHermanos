@@ -223,8 +223,8 @@ All API responses follow this structure:
 
 ### Register Purchase
 - **PUT** `/api/clientes/:id/compra`
-- Register customer purchase
-- **Body:** `{ "monto": number, "idPedido": "string (optional)" }`
+- Register customer purchase (adds to credit balance)
+- **Body:** `{ "monto": number }`
 - **Response:** `{ success: true, data: Cliente }`
 
 ---
@@ -285,7 +285,7 @@ All API responses follow this structure:
 ### Complete Stop
 - **PUT** `/api/rutas/:id/completar-parada`
 - Mark delivery stop as completed
-- **Body:** `{ "idPedido": "string", "notasEntrega": "string (optional)" }`
+- **Body:** `{ "idPedido": "string" }`
 - **Response:** `{ success: true, data: RutaEntrega }`
 
 ### Finalize Route
@@ -342,7 +342,6 @@ All API responses follow this structure:
 ### Cancel Transaction
 - **PUT** `/api/finanzas/transacciones/:id/anular`
 - Cancel/void a transaction
-- **Body:** `{ "motivo": "string (required)" }`
 - **Response:** `{ success: true, data: TransaccionFinanciera }`
 
 ---
