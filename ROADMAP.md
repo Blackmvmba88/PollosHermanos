@@ -101,7 +101,7 @@ Convertir PollosHermanos en la plataforma líder para la digitalización y optim
   - Encriptación de contraseñas (bcrypt)
   - HTTPS obligatorio
   - Sanitización de inputs
-  - Protection contra SQL injection
+  - Protección contra SQL injection
   - Rate limiting por IP/Usuario
   - Audit logs
 
@@ -698,7 +698,7 @@ Convertir PollosHermanos en la plataforma líder para la digitalización y optim
 
 #### **Enterprise** - $299/mes
 - Usuarios ilimitados
-- Multi-ubicación
+- Multiubicación
 - API access
 - Integraciones premium
 - Soporte dedicado
