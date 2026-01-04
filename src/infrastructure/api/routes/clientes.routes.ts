@@ -9,6 +9,31 @@ import { TipoCliente } from '../../../domain/entities/Cliente';
 export function crearRutasClientes(servicioClientes: ServicioClientes): Router {
   const router = Router();
 
+  // Specific routes MUST come before parameterized routes
+
+  // GET /api/clientes/tipo/:tipo - Obtener clientes por tipo
+  router.get('/tipo/:tipo', async (req: Request, res: Response) => {
+    try {
+      // Filter by tipo on the client side for now
+      // TODO: Implement obtenerPorTipo method in ServicioClientes for better performance
+      const todosClientes = await servicioClientes.obtenerTodos();
+      const tipo = req.params.tipo as TipoCliente;
+      const clientes = todosClientes.filter(c => c.tipo === tipo);
+      res.json({
+        success: true,
+        data: clientes,
+        total: clientes.length
+      });
+    } catch (error) {
+      console.error('Error al obtener clientes por tipo:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Error al obtener clientes por tipo',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // GET /api/clientes - Obtener todos los clientes
   router.get('/', async (req: Request, res: Response) => {
     try {
@@ -30,30 +55,6 @@ export function crearRutasClientes(servicioClientes: ServicioClientes): Router {
 
   // GET /api/clientes/:id - Obtener cliente por ID
   router.get('/:id', async (req: Request, res: Response) => {
-    try {
-      const cliente = await servicioClientes.obtenerPorId(req.params.id);
-      if (!cliente) {
-        return res.status(404).json({
-          success: false,
-          error: 'Cliente no encontrado'
-        });
-      }
-      res.json({
-        success: true,
-        data: cliente
-      });
-    } catch (error) {
-      console.error('Error al obtener cliente:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Error al obtener cliente',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  });
-
-  // GET /api/clientes/tipo/:tipo - Obtener clientes por tipo
-  router.get('/tipo/:tipo', async (req: Request, res: Response) => {
     try {
       // Note: This endpoint filters by tipo on the client side
       // TODO: Add obtenerPorTipo method to ServicioClientes in future

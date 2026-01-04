@@ -157,7 +157,7 @@ All API responses follow this structure:
 ### Deduct Stock
 - **PUT** `/api/inventario/:id/descontar`
 - Manually deduct stock
-- **Body:** `{ "cantidad": number, "motivo": "string (optional)" }`
+- **Body:** `{ "cantidad": number }`
 - **Response:** `{ success: true, data: ItemInventario }`
 
 ### Update Price

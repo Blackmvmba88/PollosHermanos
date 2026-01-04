@@ -9,6 +9,27 @@ import { CategoriaProducto, UnidadMedida } from '../../../domain/entities/ItemIn
 export function crearRutasInventario(servicioInventario: ServicioInventario): Router {
   const router = Router();
 
+  // Specific routes MUST come before parameterized routes
+
+  // GET /api/inventario/reponer/lista - Obtener productos para reponer
+  router.get('/reponer/lista', async (req: Request, res: Response) => {
+    try {
+      const productos = await servicioInventario.obtenerProductosParaReponer();
+      res.json({
+        success: true,
+        data: productos,
+        total: productos.length
+      });
+    } catch (error) {
+      console.error('Error al obtener productos para reponer:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Error al obtener productos para reponer',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // GET /api/inventario - Obtener todos los productos
   router.get('/', async (req: Request, res: Response) => {
     try {
@@ -30,30 +51,6 @@ export function crearRutasInventario(servicioInventario: ServicioInventario): Ro
 
   // GET /api/inventario/:id - Obtener producto por ID
   router.get('/:id', async (req: Request, res: Response) => {
-    try {
-      const producto = await servicioInventario.obtenerPorId(req.params.id);
-      if (!producto) {
-        return res.status(404).json({
-          success: false,
-          error: 'Producto no encontrado'
-        });
-      }
-      res.json({
-        success: true,
-        data: producto
-      });
-    } catch (error) {
-      console.error('Error al obtener producto:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Error al obtener producto',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  });
-
-  // GET /api/inventario/reponer/lista - Obtener productos para reponer
-  router.get('/reponer/lista', async (req: Request, res: Response) => {
     try {
       const productos = await servicioInventario.obtenerProductosParaReponer();
       res.json({

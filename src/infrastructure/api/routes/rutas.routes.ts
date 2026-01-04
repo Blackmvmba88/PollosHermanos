@@ -8,6 +8,27 @@ import { ServicioRutas } from '../../../application/services/ServicioRutas';
 export function crearRutasDeEntrega(servicioRutas: ServicioRutas): Router {
   const router = Router();
 
+  // Specific routes MUST come before parameterized routes
+
+  // GET /api/rutas/activas/lista - Obtener rutas activas
+  router.get('/activas/lista', async (req: Request, res: Response) => {
+    try {
+      const rutas = await servicioRutas.obtenerRutasActivas();
+      res.json({
+        success: true,
+        data: rutas,
+        total: rutas.length
+      });
+    } catch (error) {
+      console.error('Error al obtener rutas activas:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Error al obtener rutas activas',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // GET /api/rutas - Obtener todas las rutas
   router.get('/', async (req: Request, res: Response) => {
     try {
@@ -29,30 +50,6 @@ export function crearRutasDeEntrega(servicioRutas: ServicioRutas): Router {
 
   // GET /api/rutas/:id - Obtener ruta por ID
   router.get('/:id', async (req: Request, res: Response) => {
-    try {
-      const ruta = await servicioRutas.obtenerPorId(req.params.id);
-      if (!ruta) {
-        return res.status(404).json({
-          success: false,
-          error: 'Ruta no encontrada'
-        });
-      }
-      res.json({
-        success: true,
-        data: ruta
-      });
-    } catch (error) {
-      console.error('Error al obtener ruta:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Error al obtener ruta',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  });
-
-  // GET /api/rutas/activas/lista - Obtener rutas activas
-  router.get('/activas/lista', async (req: Request, res: Response) => {
     try {
       const rutas = await servicioRutas.obtenerRutasActivas();
       res.json({

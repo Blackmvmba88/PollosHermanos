@@ -9,6 +9,47 @@ import { EstadoPedido, PrioridadPedido } from '../../../domain/entities/Pedido';
 export function crearRutasPedidos(servicioPedidos: ServicioPedidos): Router {
   const router = Router();
 
+  // Specific routes MUST come before parameterized routes
+  
+  // GET /api/pedidos/cliente/:idCliente - Obtener pedidos por cliente
+  router.get('/cliente/:idCliente', async (req: Request, res: Response) => {
+    try {
+      const pedidos = await servicioPedidos.obtenerPedidosPorCliente(req.params.idCliente);
+      res.json({
+        success: true,
+        data: pedidos,
+        total: pedidos.length
+      });
+    } catch (error) {
+      console.error('Error al obtener pedidos del cliente:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Error al obtener pedidos del cliente',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // GET /api/pedidos/estado/:estado - Obtener pedidos por estado
+  router.get('/estado/:estado', async (req: Request, res: Response) => {
+    try {
+      const estado = req.params.estado as EstadoPedido;
+      const pedidos = await servicioPedidos.obtenerPedidosPorEstado(estado);
+      res.json({
+        success: true,
+        data: pedidos,
+        total: pedidos.length
+      });
+    } catch (error) {
+      console.error('Error al obtener pedidos por estado:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Error al obtener pedidos por estado',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   // GET /api/pedidos - Obtener todos los pedidos
   router.get('/', async (req: Request, res: Response) => {
     try {
@@ -47,45 +88,6 @@ export function crearRutasPedidos(servicioPedidos: ServicioPedidos): Router {
       res.status(500).json({
         success: false,
         error: 'Error al obtener pedido',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  });
-
-  // GET /api/pedidos/cliente/:idCliente - Obtener pedidos por cliente
-  router.get('/cliente/:idCliente', async (req: Request, res: Response) => {
-    try {
-      const pedidos = await servicioPedidos.obtenerPedidosPorCliente(req.params.idCliente);
-      res.json({
-        success: true,
-        data: pedidos,
-        total: pedidos.length
-      });
-    } catch (error) {
-      console.error('Error al obtener pedidos del cliente:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Error al obtener pedidos del cliente',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  });
-
-  // GET /api/pedidos/estado/:estado - Obtener pedidos por estado
-  router.get('/estado/:estado', async (req: Request, res: Response) => {
-    try {
-      const estado = req.params.estado as EstadoPedido;
-      const pedidos = await servicioPedidos.obtenerPedidosPorEstado(estado);
-      res.json({
-        success: true,
-        data: pedidos,
-        total: pedidos.length
-      });
-    } catch (error) {
-      console.error('Error al obtener pedidos por estado:', error);
-      res.status(500).json({
-        success: false,
-        error: 'Error al obtener pedidos por estado',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
