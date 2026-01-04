@@ -295,7 +295,8 @@ All API responses follow this structure:
 
 ### Optimize Route
 - **PUT** `/api/rutas/:id/optimizar`
-- Optimize route order
+- Optimize route order by reordering stops
+- **Body:** `{ "nuevoOrden": ["array of pedido IDs in desired order"] }`
 - **Response:** `{ success: true, data: RutaEntrega }`
 
 ---
