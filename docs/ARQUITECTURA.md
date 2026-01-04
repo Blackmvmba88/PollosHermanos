@@ -43,8 +43,20 @@ Las entidades representan los conceptos centrales del negocio:
 #### **ItemInventario (InventoryItem)**
 - Representa un producto en el inventario
 - Categorías: POLLO, HUEVOS, PROCESADOS, INSUMOS, OTROS
+- Subcategorías de Pollo: POLLO_ENTERO, PECHUGA, ALITAS, PIERNAS, MUSLOS, MENUDENCIAS, CARCASA, etc.
 - Niveles de stock: SIN_STOCK, STOCK_BAJO, NORMAL, SOBRESTOCK
-- Métodos: agregarStock(), retirarStock(), necesitaReposicion(), etc.
+- Métodos: agregarStock(), retirarStock(), necesitaReposicion(), esProductoPollo(), etc.
+
+#### **EtapaCrecimiento (GrowthStage)** 🆕
+- Representa el nivel actual del negocio y su progresión
+- Niveles: ETAPA_1_INICIO, ETAPA_2_PROCESAMIENTO, ETAPA_3_PRODUCCION, ETAPA_4_INTEGRACION
+- Incluye indicadores de crecimiento y recomendaciones
+- Métodos: calcularProgreso(), listoParaSiguienteEtapa(), avanzarEtapa(), etc.
+
+#### **ProcesamientoPollo (ChickenProcessing)** 🆕
+- Representa el procesamiento de un pollo entero en cortes
+- Incluye cortes obtenidos con pesos y valores
+- Métodos: calcularPorcentajeAprovechamiento(), calcularGananciaPotencial(), etc.
 
 #### **Cliente (Customer)**
 - Representa un cliente del negocio
@@ -86,6 +98,8 @@ Los repositorios definen contratos para la persistencia:
 - `IRepositorioRutas`
 - `IRepositorioFinanzas`
 - `IRepositorioMarketing`
+- `IRepositorioCrecimiento` 🆕
+- `IRepositorioProcesamiento` 🆕
 
 **Principio**: Las entidades del dominio no conocen cómo se persisten los datos.
 
@@ -146,6 +160,16 @@ Responsabilidades:
 - Generar reportes de inteligencia de mercado
 - Proporcionar recomendaciones estratégicas de crecimiento
 
+#### **ServicioCrecimiento** 🆕
+Responsabilidades:
+- Gestionar etapas de crecimiento del negocio
+- Evaluar progreso hacia siguiente nivel
+- Procesar pollos enteros y registrar cortes obtenidos
+- Agregar cortes al inventario automáticamente
+- Calcular aprovechamiento y eficiencia de procesamiento
+- Generar recomendaciones basadas en indicadores
+- Guiar decisiones de expansión con datos reales
+
 ## Capa de Infraestructura
 
 ### Repositorios en Memoria
@@ -158,6 +182,8 @@ Implementaciones actuales para desarrollo y testing:
 - `RepositorioRutasMemoria`
 - `RepositorioFinanzasMemoria`
 - `RepositorioMarketingMemoria`
+- `RepositorioCrecimientoMemoria` 🆕
+- `RepositorioProcesamientoMemoria` 🆕
 
 **Ventajas**:
 - Rápidos para desarrollo
@@ -244,6 +270,43 @@ Solo se requiere implementar las interfaces de repositorio sin cambiar el domini
 9. Guardar Oportunidad (RepositorioMarketing)
 10. Respuesta → OportunidadExpansion
 ```
+
+### Flujo de Procesamiento de Pollo (Nuevo) 🆕
+
+```
+1. ServicioCrecimiento.procesarPolloEntero(peso, costo, lote)
+2. Crear ProcesamientoPollo con cortes estándar
+3. Calcular proporciones (26% pechuga, 10% alitas, etc.)
+4. Asignar costos y precios a cada corte
+5. Calcular aprovechamiento y ganancia potencial
+6. Guardar Procesamiento (RepositorioProcesamiento)
+7. Para cada corte:
+   a. Buscar producto existente en inventario
+   b. Si existe: agregar stock
+   c. Si no existe: crear nuevo producto
+   d. Guardar en RepositorioInventario
+8. Respuesta → ProcesamientoPollo
+```
+
+### Flujo de Evaluación de Crecimiento (Nuevo) 🆕
+
+```
+1. ServicioCrecimiento.evaluarProgreso()
+2. Obtener EtapaCrecimiento actual
+3. Obtener datos reales del negocio:
+   a. Resumen financiero (ventas, ingresos)
+   b. Estadísticas de procesamiento
+   c. Volumen de operaciones
+4. Actualizar indicadores de la etapa
+5. Calcular progreso (% indicadores cumplidos)
+6. Si progreso >= 60%:
+   a. Generar recomendaciones
+   b. Evaluar capital disponible
+   c. Sugerir próxima etapa
+7. Guardar EtapaCrecimiento actualizada
+8. Respuesta → EtapaCrecimiento
+```
+
 
 ## Principios de Diseño
 

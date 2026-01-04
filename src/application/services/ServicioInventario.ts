@@ -24,7 +24,8 @@ export class ServicioInventario {
     nivelStockMaximo: number,
     costoUnitario: number,
     precioVenta: number,
-    idProveedor?: string
+    idProveedor?: string,
+    subcategoria?: import('../../domain/entities/ItemInventario').SubcategoriaPollo
   ): Promise<ItemInventario> {
     const item = new ItemInventario(
       this.generarId(),
@@ -37,7 +38,10 @@ export class ServicioInventario {
       costoUnitario,
       precioVenta,
       idProveedor,
-      new Date()
+      new Date(),
+      undefined,
+      undefined,
+      subcategoria
     );
 
     return await this.repositorioInventario.guardar(item);

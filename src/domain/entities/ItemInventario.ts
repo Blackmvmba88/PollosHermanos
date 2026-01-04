@@ -10,6 +10,47 @@ export enum CategoriaProducto {
 }
 
 /**
+ * Subcategoría de Pollo - Para aprovechamiento total según filosofía de crecimiento
+ */
+export enum SubcategoriaPollo {
+  // Productos Premium
+  POLLO_ENTERO = 'POLLO_ENTERO',
+  PECHUGA = 'PECHUGA',
+  ALITAS = 'ALITAS',
+  PIERNAS = 'PIERNAS',
+  
+  // Productos Estándar
+  MUSLOS = 'MUSLOS',
+  CONTRAMUSLOS = 'CONTRAMUSLOS',
+  RABADILLA = 'RABADILLA',
+  
+  // Subproductos
+  MENUDENCIAS = 'MENUDENCIAS',
+  HIGADO = 'HIGADO',
+  MOLLEJA = 'MOLLEJA',
+  CORAZON = 'CORAZON',
+  
+  // Para caldo y derivados
+  CARCASA = 'CARCASA',
+  HUESOS = 'HUESOS',
+  
+  // Productos procesados
+  POLLO_ASADO = 'POLLO_ASADO',
+  CHICHARRON = 'CHICHARRON',
+  CALDO = 'CALDO'
+}
+
+/**
+ * Nivel de Negocio - Etapas de crecimiento progresivo
+ */
+export enum NivelNegocio {
+  ETAPA_1_INICIO = 'ETAPA_1_INICIO',                    // Venta de cortes específicos
+  ETAPA_2_PROCESAMIENTO = 'ETAPA_2_PROCESAMIENTO',      // Compra y procesamiento de pollos enteros
+  ETAPA_3_PRODUCCION = 'ETAPA_3_PRODUCCION',            // Producción de pollos asados
+  ETAPA_4_INTEGRACION = 'ETAPA_4_INTEGRACION'           // Producción propia (granja)
+}
+
+/**
  * Nivel de Alerta de Stock
  */
 export enum NivelStock {
@@ -46,7 +87,9 @@ export class ItemInventario {
     public idProveedor?: string,
     public fechaUltimaReposicion?: Date,
     public fechaVencimiento?: Date,
-    public numeroLote?: string
+    public numeroLote?: string,
+    public subcategoria?: SubcategoriaPollo,
+    public idPolloOrigen?: string  // Para rastrear de qué pollo entero proviene un corte
   ) {}
 
   /**
@@ -124,5 +167,20 @@ export class ItemInventario {
    */
   calcularGananciaPotencial(): number {
     return this.stockActual * (this.precioVenta - this.costoUnitario);
+  }
+
+  /**
+   * Verificar si es un producto de pollo
+   */
+  esProductoPollo(): boolean {
+    return this.categoria === CategoriaProducto.POLLO;
+  }
+
+  /**
+   * Obtener porcentaje de margen
+   */
+  calcularPorcentajeMargen(): number {
+    if (this.costoUnitario === 0) return 0;
+    return ((this.precioVenta - this.costoUnitario) / this.costoUnitario) * 100;
   }
 }

@@ -2,8 +2,17 @@
 
 Sistema tecnológico y operativo modular para pollerías y negocios de distribución local. Incluye control de pedidos, inventario, rutas de entrega, base de datos de clientes y seguimiento financiero básico. Diseñado desde la operación real para convertir un negocio tradicional en un modelo eficiente, escalable y replicable.
 
+## 🐔 Filosofía de Crecimiento
+
+> **Cada parte del pollo es un recurso y debe ser aprovechada.**
+
+PollosHermanos no está pensado únicamente para negocios consolidados. **Este sistema está diseñado para crecer desde abajo**, acompañando a quien inicia con recursos mínimos y escala de forma progresiva. Desde una parrilla, una hielera o un pequeño puesto, hasta convertirse en una operación completa de distribución, procesamiento y producción.
+
+**[Ver Filosofía Completa →](./docs/FILOSOFIA_CRECIMIENTO.md)**
+
 ## 📚 Documentación
 
+- **[FILOSOFIA_CRECIMIENTO.md](./docs/FILOSOFIA_CRECIMIENTO.md)** - 🆕 Filosofía de aprovechamiento total y crecimiento progresivo
 - **[ROADMAP.md](./ROADMAP.md)** - Plan de desarrollo completo 2025-2027 con fases, features y objetivos estratégicos
 - **[ARQUITECTURA.md](./docs/ARQUITECTURA.md)** - Documentación técnica de la arquitectura del sistema
 - **[GUIA_USO.md](./docs/GUIA_USO.md)** - Guía práctica de uso y ejemplos de código
@@ -11,6 +20,9 @@ Sistema tecnológico y operativo modular para pollerías y negocios de distribuc
 
 ## 🎯 Características Principales
 
+- **🐔 Filosofía de Crecimiento Progresivo**: Sistema que acompaña desde el emprendedor inicial hasta la integración vertical
+- **🔪 Aprovechamiento Total del Pollo**: Gestión de procesamiento y subproductos para máxima rentabilidad
+- **📊 Etapas de Evolución**: Seguimiento automático del nivel de madurez del negocio con recomendaciones
 - **🌐 WebUI Dashboard**: Sistema de monitoreo en tiempo real con infografías interactivas
 - **Gestión de Pedidos**: Creación, seguimiento y actualización de pedidos con estados y prioridades
 - **Control de Inventario**: Gestión de stock con alertas automáticas de reposición y control de vencimientos
@@ -63,6 +75,19 @@ npm start
 ```
 
 ## 🚀 Inicio Rápido
+
+### 🐔 Demo: Filosofía de Crecimiento (NUEVO)
+
+```bash
+# Ejecutar demo de aprovechamiento total del pollo
+npm run demo:crecimiento
+```
+
+Este demo ilustra el crecimiento progresivo desde:
+- **Etapa 1**: Venta de cortes específicos (alitas, piernas)
+- **Etapa 2**: Procesamiento de pollos enteros con aprovechamiento total
+- Análisis financiero comparativo de margen de ganancia
+- Tracking automático de inventario por subcategoría
 
 ### 🌐 WebUI Dashboard (NUEVO)
 

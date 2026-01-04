@@ -4,3 +4,5 @@ export * from './IRepositorioClientes';
 export * from './IRepositorioRutas';
 export * from './IRepositorioFinanzas';
 export * from './IRepositorioMarketing';
+export * from './IRepositorioCrecimiento';
+export * from './IRepositorioProcesamiento';
