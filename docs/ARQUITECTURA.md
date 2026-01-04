@@ -63,6 +63,19 @@ Las entidades representan los conceptos centrales del negocio:
 - Métodos de pago: EFECTIVO, TARJETA, TRANSFERENCIA, CREDITO
 - Métodos: completar(), cancelar(), esIngreso(), esEgreso()
 
+#### **AnalisisCliente (CustomerAnalysis)**
+- Representa el análisis de potencial de conversión de un cliente
+- Potenciales: BAJO, MEDIO, ALTO, MAYORISTA, DISTRIBUIDOR
+- Incluye patrón de demanda (zona, volumen, frecuencia, rentabilidad)
+- Métodos: esCandidatoMayorista(), esCandidatoDistribuidor(), calcularPuntajeConversion()
+
+#### **OportunidadExpansion (ExpansionOpportunity)**
+- Representa una oportunidad de expansión vertical del negocio
+- Tipos de activo: TERRENO, GALPONES, ANIMALES, EQUIPAMIENTO, INFRAESTRUCTURA
+- Estados: ANALISIS, PLANIFICADA, EN_PROCESO, IMPLEMENTADA, DESCARTADA
+- Incluye proyección de capacidad y evaluación financiera
+- Métodos: esViableFinancieramente(), calcularPrioridad(), obtenerComparativaProduccion()
+
 ### Repositorios (Interfaces)
 
 Los repositorios definen contratos para la persistencia:
@@ -72,6 +85,7 @@ Los repositorios definen contratos para la persistencia:
 - `IRepositorioClientes`
 - `IRepositorioRutas`
 - `IRepositorioFinanzas`
+- `IRepositorioMarketing`
 
 **Principio**: Las entidades del dominio no conocen cómo se persisten los datos.
 
@@ -121,6 +135,17 @@ Responsabilidades:
 - Reportes por período
 - Balance general
 
+#### **ServicioMarketing**
+Responsabilidades:
+- Analizar clientes y detectar potencial de conversión
+- Clasificar clientes (minorista, mayorista, distribuidor)
+- Generar patrones de demanda por zona geográfica
+- Identificar clientes con alto potencial
+- Crear y evaluar oportunidades de expansión vertical
+- Evaluar viabilidad de producción propia vs compra externa
+- Generar reportes de inteligencia de mercado
+- Proporcionar recomendaciones estratégicas de crecimiento
+
 ## Capa de Infraestructura
 
 ### Repositorios en Memoria
@@ -132,6 +157,7 @@ Implementaciones actuales para desarrollo y testing:
 - `RepositorioClientesMemoria`
 - `RepositorioRutasMemoria`
 - `RepositorioFinanzasMemoria`
+- `RepositorioMarketingMemoria`
 
 **Ventajas**:
 - Rápidos para desarrollo
@@ -188,6 +214,35 @@ Solo se requiere implementar las interfaces de repositorio sin cambiar el domini
 6. ServicioRutas.completarParada()
 7. Actualizar Pedido → ENTREGADO
 8. ServicioRutas.completarRuta()
+```
+
+### Flujo de Análisis de Marketing y Conversión
+
+```
+1. ServicioMarketing.analizarCliente(idCliente)
+2. Buscar Cliente (ServicioClientes)
+3. Obtener Historial de Pedidos (ServicioPedidos)
+4. Calcular Patrón de Demanda (volumen, frecuencia, rentabilidad)
+5. Determinar Potencial de Conversión
+6. Generar Recomendaciones
+7. Calcular Puntaje de Conversión
+8. Guardar Análisis (RepositorioMarketing)
+9. Respuesta → AnalisisCliente
+```
+
+### Flujo de Evaluación de Expansión Vertical
+
+```
+1. ServicioMarketing.evaluarProduccionPropia(parámetros)
+2. Calcular Costo de Compra Externa
+3. Calcular Costo de Producción Propia
+4. Calcular ROI, Período de Retorno, VAN, TIR
+5. Respuesta → EvaluacionFinanciera
+6. ServicioMarketing.crearOportunidadExpansion()
+7. Validar Viabilidad Financiera
+8. Calcular Prioridad de Implementación
+9. Guardar Oportunidad (RepositorioMarketing)
+10. Respuesta → OportunidadExpansion
 ```
 
 ## Principios de Diseño
@@ -284,6 +339,7 @@ El diseño actual facilita la división en microservicios:
 - Servicio de Clientes
 - Servicio de Rutas
 - Servicio de Finanzas
+- Servicio de Marketing y Expansión
 
 Cada uno con su propia BD y API.
 

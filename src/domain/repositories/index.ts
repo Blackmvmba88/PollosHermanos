@@ -3,3 +3,4 @@ export * from './IRepositorioInventario';
 export * from './IRepositorioClientes';
 export * from './IRepositorioRutas';
 export * from './IRepositorioFinanzas';
+export * from './IRepositorioMarketing';
