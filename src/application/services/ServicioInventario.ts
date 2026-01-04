@@ -3,8 +3,8 @@ import {
   CategoriaProducto, 
   UnidadMedida, 
   NivelStock 
-} from '../domain/entities/ItemInventario';
-import { IRepositorioInventario } from '../domain/repositories/IRepositorioInventario';
+} from '../../domain/entities/ItemInventario';
+import { IRepositorioInventario } from '../../domain/repositories/IRepositorioInventario';
 
 /**
  * Servicio de Inventario - Gestiona la lógica de negocio relacionada con inventario

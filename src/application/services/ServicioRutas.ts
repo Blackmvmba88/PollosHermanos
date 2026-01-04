@@ -2,10 +2,10 @@ import {
   RutaEntrega, 
   EstadoRuta, 
   ParadaEntrega 
-} from '../domain/entities/RutaEntrega';
-import { IRepositorioRutas } from '../domain/repositories/IRepositorioRutas';
-import { IRepositorioPedidos } from '../domain/repositories/IRepositorioPedidos';
-import { EstadoPedido } from '../domain/entities/Pedido';
+} from '../../domain/entities/RutaEntrega';
+import { IRepositorioRutas } from '../../domain/repositories/IRepositorioRutas';
+import { IRepositorioPedidos } from '../../domain/repositories/IRepositorioPedidos';
+import { EstadoPedido } from '../../domain/entities/Pedido';
 
 /**
  * Servicio de Rutas de Entrega - Gestiona la lógica de negocio relacionada con rutas

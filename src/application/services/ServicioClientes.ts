@@ -4,8 +4,8 @@ import {
   EstadoCliente, 
   InfoContacto, 
   Direccion 
-} from '../domain/entities/Cliente';
-import { IRepositorioClientes } from '../domain/repositories/IRepositorioClientes';
+} from '../../domain/entities/Cliente';
+import { IRepositorioClientes } from '../../domain/repositories/IRepositorioClientes';
 
 /**
  * Servicio de Clientes - Gestiona la lógica de negocio relacionada con clientes

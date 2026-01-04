@@ -4,8 +4,8 @@ import {
   EstadoTransaccion, 
   MetodoPago,
   ResumenFinanciero
-} from '../domain/entities/TransaccionFinanciera';
-import { IRepositorioFinanzas } from '../domain/repositories/IRepositorioFinanzas';
+} from '../../domain/entities/TransaccionFinanciera';
+import { IRepositorioFinanzas } from '../../domain/repositories/IRepositorioFinanzas';
 
 /**
  * Servicio de Finanzas - Gestiona la lógica de negocio relacionada con transacciones financieras

@@ -1,7 +1,7 @@
-import { Pedido, EstadoPedido, PrioridadPedido, ItemPedido } from '../domain/entities/Pedido';
-import { IRepositorioPedidos } from '../domain/repositories/IRepositorioPedidos';
-import { IRepositorioInventario } from '../domain/repositories/IRepositorioInventario';
-import { IRepositorioClientes } from '../domain/repositories/IRepositorioClientes';
+import { Pedido, EstadoPedido, PrioridadPedido, ItemPedido } from '../../domain/entities/Pedido';
+import { IRepositorioPedidos } from '../../domain/repositories/IRepositorioPedidos';
+import { IRepositorioInventario } from '../../domain/repositories/IRepositorioInventario';
+import { IRepositorioClientes } from '../../domain/repositories/IRepositorioClientes';
 
 /**
  * Servicio de Pedidos - Gestiona la lógica de negocio relacionada con pedidos
