@@ -2,6 +2,12 @@
 
 Sistema tecnológico y operativo modular para pollerías y negocios de distribución local. Incluye control de pedidos, inventario, rutas de entrega, base de datos de clientes y seguimiento financiero básico. Diseñado desde la operación real para convertir un negocio tradicional en un modelo eficiente, escalable y replicable.
 
+## 📚 Documentación
+
+- **[ROADMAP.md](./ROADMAP.md)** - Plan de desarrollo completo 2025-2027 con fases, features y objetivos estratégicos
+- **[ARQUITECTURA.md](./docs/ARQUITECTURA.md)** - Documentación técnica de la arquitectura del sistema
+- **[GUIA_USO.md](./docs/GUIA_USO.md)** - Guía práctica de uso y ejemplos de código
+
 ## 🎯 Características Principales
 
 - **Gestión de Pedidos**: Creación, seguimiento y actualización de pedidos con estados y prioridades
@@ -250,22 +256,49 @@ El sistema actualmente usa repositorios en memoria para facilitar el desarrollo 
 
 ## 🛣️ Roadmap
 
-### Versión Actual (v1.0)
-- ✅ Entidades del dominio
-- ✅ Servicios de aplicación
-- ✅ Repositorios en memoria
-- ✅ Sistema de demostración
+> 📋 **[Ver Roadmap Completo →](./ROADMAP.md)** - Plan detallado de desarrollo 2025-2027
 
-### Próximas Versiones
-- [ ] API REST completa
-- [ ] Persistencia con base de datos
-- [ ] Interfaz web (dashboard)
-- [ ] Aplicación móvil
-- [ ] Autenticación y autorización
-- [ ] Reportes avanzados y analytics
-- [ ] Integración con servicios de mapas
-- [ ] Notificaciones push
-- [ ] Sistema de facturación electrónica
+### Versión Actual (v1.0 - Fundación) ✅
+- ✅ Entidades del dominio completas
+- ✅ Servicios de aplicación funcionales
+- ✅ Repositorios en memoria
+- ✅ Sistema de demostración completo
+- ✅ Arquitectura limpia implementada
+- ✅ Documentación técnica completa
+
+### Próximas Fases
+
+#### Fase 1: API y Persistencia (v1.5) - Q1 2025
+- [ ] API REST completa con OpenAPI/Swagger
+- [ ] Persistencia con PostgreSQL
+- [ ] Autenticación JWT y RBAC
+- [ ] Tests completos (>80% coverage)
+
+#### Fase 2: Interfaz Web (v2.0) - Q2 2025
+- [ ] Dashboard de administración
+- [ ] Gestión visual de pedidos e inventario
+- [ ] Mapas interactivos para rutas
+- [ ] Reportes y analytics avanzados
+
+#### Fase 3: Aplicación Móvil (v2.5) - Q3 2025
+- [ ] App para conductores (iOS/Android)
+- [ ] App para vendedores en campo
+- [ ] Funcionalidad offline
+- [ ] Tracking GPS en tiempo real
+
+#### Fase 4: Inteligencia (v3.0) - Q4 2025
+- [ ] Optimización de rutas con IA
+- [ ] Predicción de demanda
+- [ ] Analytics predictivos
+- [ ] Automatización de procesos
+
+#### Fases Futuras (2026+)
+- [ ] Sistema Multi-tenant SaaS
+- [ ] Expansión a Latinoamérica
+- [ ] E-commerce integrado
+- [ ] Gestión avanzada de flota
+
+📈 **Visión**: Convertir PollosHermanos en la plataforma líder para digitalización de negocios de distribución de alimentos en Latinoamérica.
 
 ## 🤝 Contribuir
 
