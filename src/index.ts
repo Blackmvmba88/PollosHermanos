@@ -8,17 +8,20 @@ import { ServicioInventario } from './application/services/ServicioInventario';
 import { ServicioClientes } from './application/services/ServicioClientes';
 import { ServicioRutas } from './application/services/ServicioRutas';
 import { ServicioFinanzas } from './application/services/ServicioFinanzas';
+import { ServicioMarketing } from './application/services/ServicioMarketing';
 
 import { RepositorioPedidosMemoria } from './infrastructure/persistence/RepositorioPedidosMemoria';
 import { RepositorioInventarioMemoria } from './infrastructure/persistence/RepositorioInventarioMemoria';
 import { RepositorioClientesMemoria } from './infrastructure/persistence/RepositorioClientesMemoria';
 import { RepositorioRutasMemoria } from './infrastructure/persistence/RepositorioRutasMemoria';
 import { RepositorioFinanzasMemoria } from './infrastructure/persistence/RepositorioFinanzasMemoria';
+import { RepositorioMarketingMemoria } from './infrastructure/persistence/RepositorioMarketingMemoria';
 
 import { CategoriaProducto, UnidadMedida } from './domain/entities/ItemInventario';
 import { TipoCliente } from './domain/entities/Cliente';
 import { PrioridadPedido, EstadoPedido } from './domain/entities/Pedido';
 import { TipoTransaccion, MetodoPago } from './domain/entities/TransaccionFinanciera';
+import { TipoActivoProductivo } from './domain/entities/OportunidadExpansion';
 
 /**
  * Función principal de demostración
@@ -32,6 +35,7 @@ async function main() {
   const repoClientes = new RepositorioClientesMemoria();
   const repoRutas = new RepositorioRutasMemoria();
   const repoFinanzas = new RepositorioFinanzasMemoria();
+  const repoMarketing = new RepositorioMarketingMemoria();
 
   // Inicializar servicios
   const servicioInventario = new ServicioInventario(repoInventario);
@@ -39,6 +43,7 @@ async function main() {
   const servicioPedidos = new ServicioPedidos(repoPedidos, repoInventario, repoClientes);
   const servicioRutas = new ServicioRutas(repoRutas, repoPedidos);
   const servicioFinanzas = new ServicioFinanzas(repoFinanzas);
+  const servicioMarketing = new ServicioMarketing(repoMarketing, repoClientes, repoPedidos);
 
   try {
     // 1. AGREGAR PRODUCTOS AL INVENTARIO
@@ -256,6 +261,85 @@ async function main() {
     todosLosClientes.forEach(cliente => {
       console.log(`   - ${cliente.nombre} (${cliente.tipo})`);
       console.log(`     Pedidos: ${cliente.totalPedidos} | Total gastado: $${cliente.totalGastado}`);
+    });
+
+    // 9. MÓDULO DE MARKETING Y CONVERSIÓN
+    console.log('\n🎯 9. Análisis de Marketing y Conversión...');
+    
+    // Analizar clientes para detectar potencial de conversión
+    const analisisCliente1 = await servicioMarketing.analizarCliente(cliente1.id);
+    console.log(`   ✓ Análisis de ${cliente1.nombre}:`);
+    console.log(`     - Potencial: ${analisisCliente1.potencialConversion}`);
+    console.log(`     - Puntaje: ${analisisCliente1.puntaje}/100`);
+    console.log(`     - Frecuencia de compra: ${analisisCliente1.patronDemanda.frecuenciaCompra.toFixed(1)} pedidos/mes`);
+    console.log(`     - Recomendaciones: ${analisisCliente1.recomendaciones.length}`);
+    
+    // Análisis por zona geográfica
+    const analisisZonas = await servicioMarketing.analizarDemandaPorZona();
+    console.log(`\n   📍 ANÁLISIS POR ZONA:`);
+    analisisZonas.slice(0, 2).forEach(zona => {
+      console.log(`   - ${zona.zona}:`);
+      console.log(`     Clientes: ${zona.numeroClientes} | Rentabilidad: $${zona.rentabilidadPromedio.toFixed(0)}`);
+    });
+
+    // Clientes con potencial alto
+    const clientesPotenciales = await servicioMarketing.obtenerClientesPotenciales();
+    console.log(`\n   ⭐ CLIENTES CON ALTO POTENCIAL: ${clientesPotenciales.length}`);
+
+    // 10. MÓDULO DE EXPANSIÓN VERTICAL
+    console.log('\n🏗️ 10. Evaluación de Expansión Vertical...');
+    
+    // Evaluar producción propia vs compra externa
+    const evaluacionProduccion = servicioMarketing.evaluarProduccionPropia(
+      12000, // 12,000 kg/año demanda
+      8000,  // $8,000/kg precio compra
+      5000,  // $5,000/kg costo producción
+      50000000, // $50M inversión inicial
+      3000000   // $3M/mes costos operacionales
+    );
+
+    console.log(`   📊 EVALUACIÓN FINANCIERA:`);
+    console.log(`     - Inversión inicial: $${evaluacionProduccion.inversionInicial.toLocaleString()}`);
+    console.log(`     - ROI: ${evaluacionProduccion.roi.toFixed(1)}%`);
+    console.log(`     - Período de retorno: ${evaluacionProduccion.periodoRetorno} meses`);
+    console.log(`     - Ahorro estimado (2 años): $${evaluacionProduccion.ahorroEstimado.toLocaleString()}`);
+    console.log(`     - VAN: $${evaluacionProduccion.valorActualNeto.toFixed(0).toLocaleString()}`);
+
+    // Crear oportunidad de expansión
+    const oportunidadGranjas = await servicioMarketing.crearOportunidadExpansion(
+      'Adquisición de Granja Avícola',
+      'Inversión en producción propia de pollo para reducir dependencia de proveedores',
+      TipoActivoProductivo.ANIMALES,
+      {
+        capacidadAnualKg: 12000,
+        tiempoProduccionMeses: 3,
+        costosOperacionalesMensuales: 3000000,
+        ventaEstimadaMensual: 8000000,
+        puntoEquilibrio: 12
+      },
+      evaluacionProduccion,
+      'Finca en Cundinamarca - 5 hectáreas'
+    );
+
+    console.log(`\n   ✓ Oportunidad creada: ${oportunidadGranjas.nombre}`);
+    console.log(`     - Tipo: ${oportunidadGranjas.tipoActivo}`);
+    console.log(`     - Estado: ${oportunidadGranjas.estado}`);
+    console.log(`     - Prioridad: ${oportunidadGranjas.calcularPrioridad()}/100`);
+    console.log(`     - ¿Viable?: ${oportunidadGranjas.esViableFinancieramente() ? 'SÍ ✅' : 'NO ❌'}`);
+
+    // 11. REPORTE DE INTELIGENCIA DE MERCADO
+    console.log('\n📈 11. Reporte de Inteligencia de Mercado...');
+    
+    const reporteInteligencia = await servicioMarketing.generarReporteInteligencia();
+    console.log(`\n   RESUMEN ESTRATÉGICO:`);
+    console.log(`   - Total clientes: ${reporteInteligencia.totalClientes}`);
+    console.log(`   - Clientes con potencial: ${reporteInteligencia.clientesConPotencial}`);
+    console.log(`   - Zonas analizadas: ${reporteInteligencia.analisisPorZona.length}`);
+    console.log(`   - Oportunidades viables: ${reporteInteligencia.mejoresOportunidades.length}`);
+    
+    console.log(`\n   RECOMENDACIONES ESTRATÉGICAS:`);
+    reporteInteligencia.recomendacionesEstrategicas.forEach((rec, idx) => {
+      console.log(`   ${idx + 1}. ${rec}`);
     });
 
     console.log('\n✅ ¡Sistema funcionando correctamente!\n');
