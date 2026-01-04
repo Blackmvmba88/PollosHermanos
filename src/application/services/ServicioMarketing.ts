@@ -1,6 +1,7 @@
 import { IRepositorioMarketing } from '../../domain/repositories/IRepositorioMarketing';
 import { IRepositorioClientes } from '../../domain/repositories/IRepositorioClientes';
 import { IRepositorioPedidos } from '../../domain/repositories/IRepositorioPedidos';
+import { Pedido } from '../../domain/entities/Pedido';
 import { 
   AnalisisCliente, 
   PotencialConversion, 
@@ -278,13 +279,13 @@ export class ServicioMarketing {
 
   // ========== Métodos Privados ==========
 
-  private calcularVolumenPromedio(pedidos: any[]): number {
+  private calcularVolumenPromedio(pedidos: Pedido[]): number {
     if (pedidos.length === 0) return 0;
     const totalItems = pedidos.reduce((sum, p) => sum + p.items.length, 0);
     return totalItems / pedidos.length;
   }
 
-  private calcularFrecuenciaCompra(pedidos: any[]): number {
+  private calcularFrecuenciaCompra(pedidos: Pedido[]): number {
     if (pedidos.length === 0) return 0;
     
     // Calcular frecuencia por mes
@@ -294,7 +295,7 @@ export class ServicioMarketing {
     return pedidos.length / Math.max(mesesUnicos.size, 1);
   }
 
-  private identificarProductosPreferidos(pedidos: any[]): string[] {
+  private identificarProductosPreferidos(pedidos: Pedido[]): string[] {
     const productos = new Map<string, number>();
     
     pedidos.forEach(pedido => {
