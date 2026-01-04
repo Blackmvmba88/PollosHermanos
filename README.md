@@ -1,2 +1,300 @@
-# PollosHermanos
-Sistema tecnológico y operativo para pollerías y negocios de distribución local. Incluye control de pedidos, inventario, rutas, clientes y finanzas. Diseñado desde la operación real para convertir un negocio tradicional en un modelo eficiente, escalable y replicable.
+# PollosHermanos 🐔
+
+Sistema tecnológico y operativo modular para pollerías y negocios de distribución local. Incluye control de pedidos, inventario, rutas de entrega, base de datos de clientes y seguimiento financiero básico. Diseñado desde la operación real para convertir un negocio tradicional en un modelo eficiente, escalable y replicable.
+
+## 🎯 Características Principales
+
+- **Gestión de Pedidos**: Creación, seguimiento y actualización de pedidos con estados y prioridades
+- **Control de Inventario**: Gestión de stock con alertas automáticas de reposición y control de vencimientos
+- **Base de Datos de Clientes**: Registro completo con historial de compras y gestión de crédito
+- **Rutas de Entrega**: Planificación y optimización de rutas con seguimiento en tiempo real
+- **Seguimiento Financiero**: Registro de transacciones, reportes de ingresos/egresos y balance
+- **Arquitectura Limpia**: Código modular, escalable y fácil de mantener
+- **Mobile-First**: Diseñado para operaciones móviles y en campo
+
+## 🏗️ Arquitectura
+
+El proyecto sigue los principios de **Arquitectura Limpia** (Clean Architecture):
+
+```
+src/
+├── domain/              # Núcleo del negocio (sin dependencias)
+│   ├── entities/        # Entidades del dominio
+│   └── repositories/    # Interfaces de repositorios
+├── application/         # Lógica de aplicación
+│   └── services/        # Servicios de negocio
+├── infrastructure/      # Implementaciones técnicas
+│   ├── persistence/     # Repositorios en memoria/BD
+│   └── api/            # API REST (futuro)
+└── presentation/        # Capa de presentación (futuro)
+```
+
+## 📦 Instalación
+
+### Requisitos Previos
+- Node.js (v14 o superior)
+- npm o yarn
+
+### Pasos de Instalación
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/Blackmvmba88/PollosHermanos.git
+cd PollosHermanos
+
+# Instalar dependencias
+npm install
+
+# Compilar el proyecto
+npm run build
+
+# Ejecutar el sistema de demostración
+npm start
+```
+
+## 🚀 Inicio Rápido
+
+### Ejecución del Demo
+
+```bash
+# Ejecutar en modo desarrollo
+npm run dev
+```
+
+El sistema ejecutará un flujo completo que demuestra:
+1. Agregar productos al inventario
+2. Registrar clientes
+3. Crear y confirmar pedidos
+4. Crear rutas de entrega
+5. Registrar transacciones financieras
+6. Completar entregas
+7. Generar reportes
+
+### Ejemplo de Código
+
+```typescript
+import { ServicioInventario } from './application/services/ServicioInventario';
+import { RepositorioInventarioMemoria } from './infrastructure/persistence/RepositorioInventarioMemoria';
+import { CategoriaProducto, UnidadMedida } from './domain/entities/ItemInventario';
+
+// Inicializar el servicio
+const repoInventario = new RepositorioInventarioMemoria();
+const servicioInventario = new ServicioInventario(repoInventario);
+
+// Agregar un producto
+const producto = await servicioInventario.agregarProducto(
+  'Pollo Entero',
+  CategoriaProducto.POLLO,
+  50,  // stock inicial
+  UnidadMedida.KG,
+  10,  // stock mínimo
+  100, // stock máximo
+  8000,  // costo unitario
+  12000  // precio de venta
+);
+
+console.log(`Producto agregado: ${producto.nombreProducto}`);
+```
+
+## 📚 Módulos Principales
+
+### 1. Gestión de Pedidos (ServicioPedidos)
+
+```typescript
+// Crear un pedido
+const pedido = await servicioPedidos.crearPedido(
+  idCliente,
+  items,
+  PrioridadPedido.ALTA,
+  direccionEntrega,
+  fechaEntrega
+);
+
+// Confirmar pedido (descuenta del inventario)
+await servicioPedidos.confirmarPedido(pedido.id);
+
+// Actualizar estado
+await servicioPedidos.actualizarEstado(pedido.id, EstadoPedido.EN_CAMINO);
+```
+
+**Estados de Pedido:**
+- `PENDIENTE`: Pedido creado, esperando confirmación
+- `CONFIRMADO`: Pedido confirmado, stock descontado
+- `PREPARANDO`: En preparación
+- `LISTO_PARA_ENTREGA`: Listo para ser recogido
+- `EN_CAMINO`: En ruta de entrega
+- `ENTREGADO`: Entregado al cliente
+- `CANCELADO`: Pedido cancelado
+
+### 2. Control de Inventario (ServicioInventario)
+
+```typescript
+// Agregar stock
+await servicioInventario.agregarStock(
+  idProducto,
+  cantidad,
+  numeroLote,
+  fechaVencimiento
+);
+
+// Verificar disponibilidad
+const disponible = await servicioInventario.verificarDisponibilidad(
+  idProducto,
+  cantidadRequerida
+);
+
+// Obtener productos que necesitan reposición
+const productosParaReponer = await servicioInventario.obtenerProductosParaReponer();
+```
+
+**Niveles de Stock:**
+- `SIN_STOCK`: Sin existencias
+- `STOCK_BAJO`: Por debajo del nivel mínimo
+- `NORMAL`: Stock adecuado
+- `SOBRESTOCK`: Por encima del nivel máximo
+
+### 3. Gestión de Clientes (ServicioClientes)
+
+```typescript
+// Registrar cliente
+const cliente = await servicioClientes.registrarCliente(
+  nombre,
+  TipoCliente.RESTAURANTE,
+  { telefono: '3001234567', email: 'cliente@email.com' },
+  [direccion],
+  limiteCredito
+);
+
+// Agregar dirección
+await servicioClientes.agregarDireccion(cliente.id, nuevaDireccion);
+
+// Registrar pago
+await servicioClientes.registrarPago(cliente.id, monto);
+```
+
+**Tipos de Cliente:**
+- `MINORISTA`: Cliente individual
+- `MAYORISTA`: Cliente por volumen
+- `RESTAURANTE`: Negocio de alimentos
+- `REGULAR`: Cliente frecuente
+
+### 4. Rutas de Entrega (ServicioRutas)
+
+```typescript
+// Crear ruta
+const ruta = await servicioRutas.crearRuta(
+  'Ruta Norte',
+  fechaPlanificada,
+  idConductor,
+  nombreConductor,
+  idVehiculo
+);
+
+// Agregar parada
+await servicioRutas.agregarParada(ruta.id, parada);
+
+// Iniciar ruta
+await servicioRutas.iniciarRuta(ruta.id);
+
+// Completar parada
+await servicioRutas.completarParada(ruta.id, idPedido);
+```
+
+### 5. Seguimiento Financiero (ServicioFinanzas)
+
+```typescript
+// Registrar transacción
+const transaccion = await servicioFinanzas.registrarTransaccion(
+  TipoTransaccion.VENTA,
+  monto,
+  MetodoPago.EFECTIVO,
+  descripcion
+);
+
+// Generar resumen financiero
+const resumen = await servicioFinanzas.generarResumen(
+  fechaInicio,
+  fechaFin
+);
+
+console.log(`Balance: $${resumen.balance}`);
+```
+
+## 🔧 Configuración
+
+El sistema actualmente usa repositorios en memoria para facilitar el desarrollo y testing. Para usar persistencia real:
+
+1. Implementar repositorios con tu base de datos preferida (MongoDB, PostgreSQL, etc.)
+2. Inyectar los nuevos repositorios en los servicios
+3. La interfaz se mantiene igual gracias a la inversión de dependencias
+
+## 📊 Casos de Uso
+
+### Caso 1: Pollería Local
+- Gestionar pedidos diarios de pollo fresco
+- Controlar stock de productos perecederos
+- Optimizar rutas de entrega en la ciudad
+- Seguimiento de ventas diarias
+
+### Caso 2: Distribuidora de Alimentos
+- Gestión de múltiples productos
+- Clientes mayoristas con crédito
+- Rutas de entrega programadas
+- Control financiero detallado
+
+### Caso 3: Mini-Market
+- Inventario de productos variados
+- Clientes minoristas
+- Ventas en mostrador y a domicilio
+- Reportes de rentabilidad
+
+## 🛣️ Roadmap
+
+### Versión Actual (v1.0)
+- ✅ Entidades del dominio
+- ✅ Servicios de aplicación
+- ✅ Repositorios en memoria
+- ✅ Sistema de demostración
+
+### Próximas Versiones
+- [ ] API REST completa
+- [ ] Persistencia con base de datos
+- [ ] Interfaz web (dashboard)
+- [ ] Aplicación móvil
+- [ ] Autenticación y autorización
+- [ ] Reportes avanzados y analytics
+- [ ] Integración con servicios de mapas
+- [ ] Notificaciones push
+- [ ] Sistema de facturación electrónica
+
+## 🤝 Contribuir
+
+Las contribuciones son bienvenidas. Por favor:
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/NuevaCaracteristica`)
+3. Commit tus cambios (`git commit -m 'Agregar nueva característica'`)
+4. Push a la rama (`git push origin feature/NuevaCaracteristica`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+
+## 👥 Autores
+
+- **Equipo PollosHermanos** - Desarrollo inicial
+
+## 🙏 Agradecimientos
+
+- Inspirado en necesidades reales de negocios locales de distribución
+- Diseñado con principios de Clean Architecture y SOLID
+- Construido con TypeScript para mayor seguridad de tipos
+
+## 📧 Contacto
+
+Para preguntas, sugerencias o soporte, por favor abre un issue en GitHub.
+
+---
+
+**PollosHermanos** - Transformando negocios tradicionales en operaciones eficientes y escalables 🚀
