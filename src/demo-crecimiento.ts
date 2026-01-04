@@ -82,9 +82,6 @@ async function main() {
       15000, // Costo cuando se compran procesadas
       22000, // Precio de venta
       undefined,
-      undefined,
-      undefined,
-      undefined,
       SubcategoriaPollo.ALITAS
     );
     console.log(`   ✓ ${alitas.nombreProducto}: ${alitas.stockActual} kg`);
@@ -100,9 +97,6 @@ async function main() {
       25,
       14000,
       20000,
-      undefined,
-      undefined,
-      undefined,
       undefined,
       SubcategoriaPollo.PIERNAS
     );
@@ -162,7 +156,7 @@ async function main() {
     procesamiento.cortes.forEach(corte => {
       const nombreCorte = corte.subcategoria.replace(/_/g, ' ');
       const pesoKg = (corte.pesoGramos / 1000).toFixed(2);
-      const valorKg = corte.pesoGramos / 1000 * corte.precioVenta;
+      const valorKg = (corte.pesoGramos / 1000) * corte.precioVenta;
       console.log(`   • ${nombreCorte}:`);
       console.log(`     - Peso: ${pesoKg} kg (${corte.porcentaje}%)`);
       console.log(`     - Precio venta: $${corte.precioVenta.toLocaleString()}/kg`);

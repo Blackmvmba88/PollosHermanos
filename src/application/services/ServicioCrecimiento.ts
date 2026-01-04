@@ -118,12 +118,14 @@ export class ServicioCrecimiento {
   private async agregarCortesAlInventario(
     procesamiento: ProcesamientoPollo
   ): Promise<void> {
+    // Optimización: Cargar todos los productos una sola vez
+    const todosLosProductos = await this.repositorioInventario.obtenerTodos();
+    
     for (const corte of procesamiento.cortes) {
       const pesoKg = corte.pesoGramos / 1000;
       
-      // Buscar si ya existe un producto para este tipo de corte
-      const productosExistentes = await this.repositorioInventario.obtenerTodos();
-      const productoExistente = productosExistentes.find(p => 
+      // Buscar producto existente en la lista pre-cargada
+      const productoExistente = todosLosProductos.find(p => 
         p.subcategoria === corte.subcategoria
       );
 
@@ -155,6 +157,8 @@ export class ServicioCrecimiento {
           procesamiento.id
         );
         await this.repositorioInventario.guardar(nuevoProducto);
+        // Agregar al cache local para evitar recrear en el mismo procesamiento
+        todosLosProductos.push(nuevoProducto);
       }
     }
   }
@@ -379,9 +383,12 @@ export class ServicioCrecimiento {
   }
 
   /**
-   * Generar ID único
+   * Generar ID único con timestamp y caracteres aleatorios
+   * Formato: CREC-{timestamp}-{random}
    */
   private generarId(): string {
-    return `CREC-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substr(2, 9);
+    return `CREC-${timestamp}-${random}`;
   }
 }

@@ -1,6 +1,18 @@
 import { SubcategoriaPollo } from './ItemInventario';
 
 /**
+ * Configuración estándar de cortes de pollo
+ */
+export const CORTES_ESTANDAR = {
+  PECHUGA: { porcentaje: 0.26, precioDefecto: 18000 },
+  ALITAS: { porcentaje: 0.10, precioDefecto: 15000 },
+  PIERNAS: { porcentaje: 0.24, precioDefecto: 14000 },
+  MUSLOS: { porcentaje: 0.20, precioDefecto: 14000 },
+  MENUDENCIAS: { porcentaje: 0.08, precioDefecto: 5000 },
+  CARCASA: { porcentaje: 0.12, precioDefecto: 2000 }
+};
+
+/**
  * Corte obtenido de un pollo entero procesado
  */
 export interface CortePollo {
@@ -165,45 +177,45 @@ export class ProcesamientoPollo {
     const cortes: CortePollo[] = [
       {
         subcategoria: SubcategoriaPollo.PECHUGA,
-        pesoGramos: pesoGramos * 0.26,
-        porcentaje: 26,
-        costoAsignado: costoTotal * 0.26,
-        precioVenta: preciosPorKg.get(SubcategoriaPollo.PECHUGA) || 18000
+        pesoGramos: pesoGramos * CORTES_ESTANDAR.PECHUGA.porcentaje,
+        porcentaje: CORTES_ESTANDAR.PECHUGA.porcentaje * 100,
+        costoAsignado: costoTotal * CORTES_ESTANDAR.PECHUGA.porcentaje,
+        precioVenta: preciosPorKg.get(SubcategoriaPollo.PECHUGA) || CORTES_ESTANDAR.PECHUGA.precioDefecto
       },
       {
         subcategoria: SubcategoriaPollo.ALITAS,
-        pesoGramos: pesoGramos * 0.10,
-        porcentaje: 10,
-        costoAsignado: costoTotal * 0.10,
-        precioVenta: preciosPorKg.get(SubcategoriaPollo.ALITAS) || 15000
+        pesoGramos: pesoGramos * CORTES_ESTANDAR.ALITAS.porcentaje,
+        porcentaje: CORTES_ESTANDAR.ALITAS.porcentaje * 100,
+        costoAsignado: costoTotal * CORTES_ESTANDAR.ALITAS.porcentaje,
+        precioVenta: preciosPorKg.get(SubcategoriaPollo.ALITAS) || CORTES_ESTANDAR.ALITAS.precioDefecto
       },
       {
         subcategoria: SubcategoriaPollo.PIERNAS,
-        pesoGramos: pesoGramos * 0.24,
-        porcentaje: 24,
-        costoAsignado: costoTotal * 0.24,
-        precioVenta: preciosPorKg.get(SubcategoriaPollo.PIERNAS) || 14000
+        pesoGramos: pesoGramos * CORTES_ESTANDAR.PIERNAS.porcentaje,
+        porcentaje: CORTES_ESTANDAR.PIERNAS.porcentaje * 100,
+        costoAsignado: costoTotal * CORTES_ESTANDAR.PIERNAS.porcentaje,
+        precioVenta: preciosPorKg.get(SubcategoriaPollo.PIERNAS) || CORTES_ESTANDAR.PIERNAS.precioDefecto
       },
       {
         subcategoria: SubcategoriaPollo.MUSLOS,
-        pesoGramos: pesoGramos * 0.20,
-        porcentaje: 20,
-        costoAsignado: costoTotal * 0.20,
-        precioVenta: preciosPorKg.get(SubcategoriaPollo.MUSLOS) || 14000
+        pesoGramos: pesoGramos * CORTES_ESTANDAR.MUSLOS.porcentaje,
+        porcentaje: CORTES_ESTANDAR.MUSLOS.porcentaje * 100,
+        costoAsignado: costoTotal * CORTES_ESTANDAR.MUSLOS.porcentaje,
+        precioVenta: preciosPorKg.get(SubcategoriaPollo.MUSLOS) || CORTES_ESTANDAR.MUSLOS.precioDefecto
       },
       {
         subcategoria: SubcategoriaPollo.MENUDENCIAS,
-        pesoGramos: pesoGramos * 0.08,
-        porcentaje: 8,
-        costoAsignado: costoTotal * 0.08,
-        precioVenta: preciosPorKg.get(SubcategoriaPollo.MENUDENCIAS) || 5000
+        pesoGramos: pesoGramos * CORTES_ESTANDAR.MENUDENCIAS.porcentaje,
+        porcentaje: CORTES_ESTANDAR.MENUDENCIAS.porcentaje * 100,
+        costoAsignado: costoTotal * CORTES_ESTANDAR.MENUDENCIAS.porcentaje,
+        precioVenta: preciosPorKg.get(SubcategoriaPollo.MENUDENCIAS) || CORTES_ESTANDAR.MENUDENCIAS.precioDefecto
       },
       {
         subcategoria: SubcategoriaPollo.CARCASA,
-        pesoGramos: pesoGramos * 0.12,
-        porcentaje: 12,
-        costoAsignado: costoTotal * 0.12,
-        precioVenta: preciosPorKg.get(SubcategoriaPollo.CARCASA) || 2000
+        pesoGramos: pesoGramos * CORTES_ESTANDAR.CARCASA.porcentaje,
+        porcentaje: CORTES_ESTANDAR.CARCASA.porcentaje * 100,
+        costoAsignado: costoTotal * CORTES_ESTANDAR.CARCASA.porcentaje,
+        precioVenta: preciosPorKg.get(SubcategoriaPollo.CARCASA) || CORTES_ESTANDAR.CARCASA.precioDefecto
       }
     ];
 
