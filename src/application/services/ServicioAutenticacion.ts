@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import { User, UserRole, RefreshToken } from '../../domain/entities/User';
 import { Config } from '../../infrastructure/config/Config';
@@ -197,7 +197,7 @@ export class ServicioAutenticacion {
 
     return jwt.sign(payload, Config.JWT_SECRET, {
       expiresIn: Config.JWT_EXPIRES_IN,
-    });
+    } as jwt.SignOptions);
   }
 
   /**
@@ -207,7 +207,7 @@ export class ServicioAutenticacion {
     const tokenId = `rt-${uuidv4()}`;
     const token = jwt.sign({ userId: user.id }, Config.JWT_REFRESH_SECRET, {
       expiresIn: Config.JWT_REFRESH_EXPIRES_IN,
-    });
+    } as jwt.SignOptions);
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7); // 7 days

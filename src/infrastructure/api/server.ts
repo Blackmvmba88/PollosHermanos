@@ -26,7 +26,8 @@ import {
   crearRutasInventario,
   crearRutasClientes,
   crearRutasDeEntrega,
-  crearRutasFinanzas
+  crearRutasFinanzas,
+  authRoutes
 } from './routes';
 
 export class WebUIServer {
@@ -124,6 +125,7 @@ export class WebUIServer {
     });
 
     // REST API Routes - Phase 1
+    this.app.use('/api/auth', authRoutes);
     this.app.use('/api/pedidos', crearRutasPedidos(this.servicioPedidos));
     this.app.use('/api/inventario', crearRutasInventario(this.servicioInventario));
     this.app.use('/api/clientes', crearRutasClientes(this.servicioClientes));
@@ -211,6 +213,13 @@ export class WebUIServer {
       console.log(`📊 Dashboard disponible en http://localhost:${this.port}/`);
       console.log(`💚 Health check: http://localhost:${this.port}/api/health`);
       console.log(`\n📋 Endpoints disponibles:`);
+      console.log(`   AUTH:`);
+      console.log(`   - POST   /api/auth/register`);
+      console.log(`   - POST   /api/auth/login`);
+      console.log(`   - POST   /api/auth/refresh`);
+      console.log(`   - POST   /api/auth/logout`);
+      console.log(`   - GET    /api/auth/me`);
+      console.log(`   PEDIDOS:`);
       console.log(`   - POST   /api/pedidos`);
       console.log(`   - GET    /api/pedidos`);
       console.log(`   - GET    /api/pedidos/:id`);

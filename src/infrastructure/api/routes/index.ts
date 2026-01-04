@@ -8,3 +8,7 @@ export { crearRutasInventario } from './inventario.routes';
 export { crearRutasClientes } from './clientes.routes';
 export { crearRutasDeEntrega } from './rutas.routes';
 export { crearRutasFinanzas } from './finanzas.routes';
+
+// Import auth routes
+import authRoutes from './auth.routes';
+export { authRoutes };
