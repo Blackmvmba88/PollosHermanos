@@ -76,6 +76,19 @@ npm start
 
 ## 🚀 Inicio Rápido
 
+### 🐔 Demo: Filosofía de Crecimiento (NUEVO)
+
+```bash
+# Ejecutar demo de aprovechamiento total del pollo
+npm run demo:crecimiento
+```
+
+Este demo ilustra el crecimiento progresivo desde:
+- **Etapa 1**: Venta de cortes específicos (alitas, piernas)
+- **Etapa 2**: Procesamiento de pollos enteros con aprovechamiento total
+- Análisis financiero comparativo de margen de ganancia
+- Tracking automático de inventario por subcategoría
+
 ### 🌐 WebUI Dashboard (NUEVO)
 
 ```bash
