@@ -56,21 +56,22 @@ export function crearRutasClientes(servicioClientes: ServicioClientes): Router {
   // GET /api/clientes/:id - Obtener cliente por ID
   router.get('/:id', async (req: Request, res: Response) => {
     try {
-      // Note: This endpoint filters by tipo on the client side
-      // TODO: Add obtenerPorTipo method to ServicioClientes in future
-      const todosClientes = await servicioClientes.obtenerTodos();
-      const tipo = req.params.tipo as TipoCliente;
-      const clientes = todosClientes.filter(c => c.tipo === tipo);
+      const cliente = await servicioClientes.obtenerPorId(req.params.id);
+      if (!cliente) {
+        return res.status(404).json({
+          success: false,
+          error: 'Cliente no encontrado'
+        });
+      }
       res.json({
         success: true,
-        data: clientes,
-        total: clientes.length
+        data: cliente
       });
     } catch (error) {
-      console.error('Error al obtener clientes por tipo:', error);
+      console.error('Error al obtener cliente:', error);
       res.status(500).json({
         success: false,
-        error: 'Error al obtener clientes por tipo',
+        error: 'Error al obtener cliente',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
