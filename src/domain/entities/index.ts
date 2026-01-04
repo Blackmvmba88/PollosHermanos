@@ -5,3 +5,5 @@ export * from './RutaEntrega';
 export * from './TransaccionFinanciera';
 export * from './AnalisisCliente';
 export * from './OportunidadExpansion';
+export * from './EtapaCrecimiento';
+export * from './ProcesamientoPollo';
