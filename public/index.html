@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PollosHermanos - Dashboard de Monitoreo</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🐔 PollosHermanos</h1>
+                <p class="subtitle">Sistema de Monitoreo y Control</p>
+            </div>
+            <div class="header-actions">
+                <button id="refreshBtn" class="btn-refresh">🔄 Actualizar</button>
+                <span id="lastUpdate" class="last-update"></span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Tarjetas de Resumen -->
+            <section class="summary-cards">
+                <div class="card card-primary">
+                    <div class="card-icon">📦</div>
+                    <div class="card-content">
+                        <h3 id="totalPedidos">0</h3>
+                        <p>Total Pedidos</p>
+                    </div>
+                </div>
+                <div class="card card-success">
+                    <div class="card-icon">👥</div>
+                    <div class="card-content">
+                        <h3 id="totalClientes">0</h3>
+                        <p>Clientes Activos</p>
+                    </div>
+                </div>
+                <div class="card card-warning">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <h3 id="totalProductos">0</h3>
+                        <p>Productos en Stock</p>
+                    </div>
+                </div>
+                <div class="card card-info">
+                    <div class="card-icon">🚚</div>
+                    <div class="card-content">
+                        <h3 id="rutasActivas">0</h3>
+                        <p>Rutas Activas</p>
+                    </div>
+                </div>
+                <div class="card card-money">
+                    <div class="card-icon">💰</div>
+                    <div class="card-content">
+                        <h3 id="balance">$0</h3>
+                        <p>Balance del Mes</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gráficos y Estadísticas -->
+            <section class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-card">
+                        <h2>📈 Estado de Pedidos</h2>
+                        <div id="pedidosChart" class="bar-chart"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h2>📦 Niveles de Inventario</h2>
+                        <div id="inventarioChart" class="bar-chart"></div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-card">
+                        <h2>💵 Resumen Financiero</h2>
+                        <div id="finanzasChart" class="bar-chart"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h2>👥 Clientes por Tipo</h2>
+                        <div id="clientesChart" class="bar-chart"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabla de Productos -->
+            <section class="table-section">
+                <div class="table-card">
+                    <h2>📦 Estado del Inventario</h2>
+                    <div class="table-responsive">
+                        <table id="inventarioTable">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Stock Actual</th>
+                                    <th>Unidad</th>
+                                    <th>Nivel</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventarioTableBody">
+                                <tr>
+                                    <td colspan="5" class="loading">Cargando datos...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lista de Rutas -->
+            <section class="table-section">
+                <div class="table-card">
+                    <h2>🚚 Rutas de Entrega</h2>
+                    <div class="table-responsive">
+                        <table id="rutasTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre de Ruta</th>
+                                    <th>Conductor</th>
+                                    <th>Paradas</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rutasTableBody">
+                                <tr>
+                                    <td colspan="5" class="loading">Cargando datos...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 PollosHermanos - Sistema de Gestión y Monitoreo</p>
+        </footer>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

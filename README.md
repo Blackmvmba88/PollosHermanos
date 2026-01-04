@@ -7,9 +7,11 @@ Sistema tecnológico y operativo modular para pollerías y negocios de distribuc
 - **[ROADMAP.md](./ROADMAP.md)** - Plan de desarrollo completo 2025-2027 con fases, features y objetivos estratégicos
 - **[ARQUITECTURA.md](./docs/ARQUITECTURA.md)** - Documentación técnica de la arquitectura del sistema
 - **[GUIA_USO.md](./docs/GUIA_USO.md)** - Guía práctica de uso y ejemplos de código
+- **[WEBUI.md](./docs/WEBUI.md)** - 🆕 Documentación del Dashboard Web de Monitoreo
 
 ## 🎯 Características Principales
 
+- **🌐 WebUI Dashboard**: Sistema de monitoreo en tiempo real con infografías interactivas
 - **Gestión de Pedidos**: Creación, seguimiento y actualización de pedidos con estados y prioridades
 - **Control de Inventario**: Gestión de stock con alertas automáticas de reposición y control de vencimientos
 - **Base de Datos de Clientes**: Registro completo con historial de compras y gestión de crédito
@@ -62,10 +64,26 @@ npm start
 
 ## 🚀 Inicio Rápido
 
-### Ejecución del Demo
+### 🌐 WebUI Dashboard (NUEVO)
 
 ```bash
-# Ejecutar en modo desarrollo
+# Iniciar el dashboard web de monitoreo
+npm run webui
+```
+
+Abre tu navegador en `http://localhost:3000` para acceder al dashboard interactivo con:
+- 📊 Infografías en tiempo real de pedidos, inventario y finanzas
+- 📈 Gráficos de estado de operaciones
+- 📦 Tablas detalladas de inventario y rutas
+- 💰 Resumen financiero del mes
+- 🔄 Actualización automática cada 30 segundos
+
+Ver [documentación completa del WebUI](./docs/WEBUI.md)
+
+### Ejecución del Demo CLI
+
+```bash
+# Ejecutar en modo desarrollo (línea de comandos)
 npm run dev
 ```
 
@@ -319,6 +337,7 @@ El sistema actualmente usa repositorios en memoria para facilitar el desarrollo 
 - ✅ Módulo de Marketing y Conversión
 - ✅ Módulo de Expansión Vertical
 - ✅ Análisis de inteligencia de mercado
+- ✅ **WebUI Dashboard de Monitoreo** 🆕
 
 ### Próximas Fases
 
