@@ -76,6 +76,22 @@ npm start
 
 ## 🚀 Inicio Rápido
 
+### 🎯 Phase 1: REST API Server (NUEVO)
+
+```bash
+# Iniciar el servidor REST API - Phase 1 Active
+npm run api
+```
+
+El servidor API REST estará disponible en `http://localhost:3000/api` con endpoints completos para:
+- ✅ **Pedidos** (Orders) - CRUD completo
+- ✅ **Inventario** (Inventory) - Gestión de productos y stock
+- ✅ **Clientes** (Customers) - Registro y gestión
+- ✅ **Rutas** (Delivery Routes) - Planificación de entregas
+- ✅ **Finanzas** (Finance) - Transacciones y reportes
+
+Ver [documentación completa del API](./docs/API.md)
+
 ### 🐔 Demo: Filosofía de Crecimiento (NUEVO)
 
 ```bash
@@ -352,7 +368,7 @@ El sistema actualmente usa repositorios en memoria para facilitar el desarrollo 
 
 > 📋 **[Ver Roadmap Completo →](./ROADMAP.md)** - Plan detallado de desarrollo 2025-2027
 
-### Versión Actual (v1.0 - Fundación) ✅
+### Versión Actual (v1.5 - Phase 1: API y Persistencia) ✅
 - ✅ Entidades del dominio completas
 - ✅ Servicios de aplicación funcionales
 - ✅ Repositorios en memoria
@@ -362,12 +378,16 @@ El sistema actualmente usa repositorios en memoria para facilitar el desarrollo 
 - ✅ Módulo de Marketing y Conversión
 - ✅ Módulo de Expansión Vertical
 - ✅ Análisis de inteligencia de mercado
-- ✅ **WebUI Dashboard de Monitoreo** 🆕
+- ✅ **WebUI Dashboard de Monitoreo**
+- ✅ **REST API Completa** 🆕
+- ✅ **Endpoints para todos los módulos** 🆕
+- ✅ **Documentación OpenAPI** 🆕
+- ✅ **Phase 1 ACTIVADA** 🎯
 
 ### Próximas Fases
 
-#### Fase 1: API y Persistencia (v1.5) - Q1 2025
-- [ ] API REST completa con OpenAPI/Swagger
+#### Fase 1: API y Persistencia (v1.5) - Q1 2025 - ✅ EN PROGRESO
+- [x] API REST completa con OpenAPI/Swagger
 - [ ] Persistencia con PostgreSQL
 - [ ] Autenticación JWT y RBAC
 - [ ] Tests completos (>80% coverage)
