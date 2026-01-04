@@ -20,6 +20,15 @@ import { RepositorioRutasMemoria } from '../persistence/RepositorioRutasMemoria'
 import { RepositorioFinanzasMemoria } from '../persistence/RepositorioFinanzasMemoria';
 import { RepositorioMarketingMemoria } from '../persistence/RepositorioMarketingMemoria';
 
+// Import REST API routes
+import {
+  crearRutasPedidos,
+  crearRutasInventario,
+  crearRutasClientes,
+  crearRutasDeEntrega,
+  crearRutasFinanzas
+} from './routes';
+
 export class WebUIServer {
   private app: express.Application;
   private port: number;
@@ -68,78 +77,58 @@ export class WebUIServer {
       res.sendFile(path.join(__dirname, '../../../public/index.html'));
     });
 
-    // API Endpoints
+    // Health check endpoint
+    this.app.get('/api/health', (req: Request, res: Response) => {
+      res.json({
+        success: true,
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        message: 'PollosHermanos API - Phase 1 Active'
+      });
+    });
+
+    // Dashboard endpoint (legacy support)
     this.app.get('/api/dashboard', async (req: Request, res: Response) => {
       try {
         const data = await this.obtenerDatosDashboard();
-        res.json(data);
+        res.json({
+          success: true,
+          data
+        });
       } catch (error) {
         console.error('Error al obtener datos del dashboard:', error);
-        res.status(500).json({ error: 'Error al obtener datos del dashboard' });
+        res.status(500).json({
+          success: false,
+          error: 'Error al obtener datos del dashboard',
+          message: error instanceof Error ? error.message : 'Unknown error'
+        });
       }
     });
 
-    this.app.get('/api/pedidos', async (req: Request, res: Response) => {
-      try {
-        const pedidos = await this.servicioPedidos.obtenerTodos();
-        res.json(pedidos);
-      } catch (error) {
-        console.error('Error al obtener pedidos:', error);
-        res.status(500).json({ error: 'Error al obtener pedidos' });
-      }
-    });
-
-    this.app.get('/api/inventario', async (req: Request, res: Response) => {
-      try {
-        const inventario = await this.servicioInventario.obtenerTodos();
-        res.json(inventario);
-      } catch (error) {
-        console.error('Error al obtener inventario:', error);
-        res.status(500).json({ error: 'Error al obtener inventario' });
-      }
-    });
-
-    this.app.get('/api/clientes', async (req: Request, res: Response) => {
-      try {
-        const clientes = await this.servicioClientes.obtenerTodos();
-        res.json(clientes);
-      } catch (error) {
-        console.error('Error al obtener clientes:', error);
-        res.status(500).json({ error: 'Error al obtener clientes' });
-      }
-    });
-
-    this.app.get('/api/rutas', async (req: Request, res: Response) => {
-      try {
-        const rutas = await this.servicioRutas.obtenerTodas();
-        res.json(rutas);
-      } catch (error) {
-        console.error('Error al obtener rutas:', error);
-        res.status(500).json({ error: 'Error al obtener rutas' });
-      }
-    });
-
-    this.app.get('/api/finanzas', async (req: Request, res: Response) => {
-      try {
-        const hoy = new Date();
-        const inicioMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-        const resumen = await this.servicioFinanzas.generarResumen(inicioMes, hoy);
-        res.json(resumen);
-      } catch (error) {
-        console.error('Error al obtener datos financieros:', error);
-        res.status(500).json({ error: 'Error al obtener datos financieros' });
-      }
-    });
-
+    // Marketing endpoint (legacy support)
     this.app.get('/api/marketing', async (req: Request, res: Response) => {
       try {
         const reporte = await this.servicioMarketing.generarReporteInteligencia();
-        res.json(reporte);
+        res.json({
+          success: true,
+          data: reporte
+        });
       } catch (error) {
         console.error('Error al obtener datos de marketing:', error);
-        res.status(500).json({ error: 'Error al obtener datos de marketing' });
+        res.status(500).json({
+          success: false,
+          error: 'Error al obtener datos de marketing',
+          message: error instanceof Error ? error.message : 'Unknown error'
+        });
       }
     });
+
+    // REST API Routes - Phase 1
+    this.app.use('/api/pedidos', crearRutasPedidos(this.servicioPedidos));
+    this.app.use('/api/inventario', crearRutasInventario(this.servicioInventario));
+    this.app.use('/api/clientes', crearRutasClientes(this.servicioClientes));
+    this.app.use('/api/rutas', crearRutasDeEntrega(this.servicioRutas));
+    this.app.use('/api/finanzas', crearRutasFinanzas(this.servicioFinanzas));
   }
 
   private async obtenerDatosDashboard() {
@@ -217,8 +206,26 @@ export class WebUIServer {
 
   public iniciar() {
     this.app.listen(this.port, () => {
-      console.log(`🚀 Servidor WebUI iniciado en http://localhost:${this.port}`);
+      console.log(`🚀 PollosHermanos API Server - Phase 1 Active`);
+      console.log(`📡 API disponible en http://localhost:${this.port}/api`);
       console.log(`📊 Dashboard disponible en http://localhost:${this.port}/`);
+      console.log(`💚 Health check: http://localhost:${this.port}/api/health`);
+      console.log(`\n📋 Endpoints disponibles:`);
+      console.log(`   - POST   /api/pedidos`);
+      console.log(`   - GET    /api/pedidos`);
+      console.log(`   - GET    /api/pedidos/:id`);
+      console.log(`   - PUT    /api/pedidos/:id/confirmar`);
+      console.log(`   - DELETE /api/pedidos/:id`);
+      console.log(`   - POST   /api/inventario`);
+      console.log(`   - GET    /api/inventario`);
+      console.log(`   - PUT    /api/inventario/:id/stock`);
+      console.log(`   - POST   /api/clientes`);
+      console.log(`   - GET    /api/clientes`);
+      console.log(`   - POST   /api/rutas`);
+      console.log(`   - GET    /api/rutas`);
+      console.log(`   - POST   /api/finanzas/transacciones`);
+      console.log(`   - GET    /api/finanzas/resumen`);
+      console.log(`\n🎯 Phase 1: API y Persistencia - ACTIVADA ✅`);
     });
   }
 
