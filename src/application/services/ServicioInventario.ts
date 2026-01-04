@@ -155,7 +155,7 @@ export class ServicioInventario {
    */
   async calcularValorTotal(): Promise<number> {
     const items = await this.repositorioInventario.obtenerTodos();
-    return items.reduce((total, item) => total + item.calcularValor(), 0);
+    return items.reduce((total: number, item) => total + item.calcularValor(), 0);
   }
 
   /**
@@ -163,7 +163,7 @@ export class ServicioInventario {
    */
   async calcularGananciaPotencial(): Promise<number> {
     const items = await this.repositorioInventario.obtenerTodos();
-    return items.reduce((total, item) => total + item.calcularGananciaPotencial(), 0);
+    return items.reduce((total: number, item) => total + item.calcularGananciaPotencial(), 0);
   }
 
   /**
