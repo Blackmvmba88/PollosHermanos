@@ -368,10 +368,10 @@ export class ServicioMarketing {
   // ========== Generadores de ID ==========
 
   private generarIdAnalisis(): string {
-    return `ANL-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    return `ANL-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
   }
 
   private generarIdOportunidad(): string {
-    return `OPT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    return `OPT-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
   }
 }
