@@ -8,6 +8,7 @@ build/
 *.js
 *.js.map
 !jest.config.js
+!public/**/*.js
 
 # TypeScript cache
 *.tsbuildinfo
