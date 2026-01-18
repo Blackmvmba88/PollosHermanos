@@ -71,18 +71,18 @@ Este hueco de mercado es donde se sitúa PollosHermanos.
 **Margen inicial:** 17%  
 
 **Problemas detectados:**
-* Desperdicio por caducidad
-* Rutas ineficientes
-* Crédito informal
-* Falta de datos de rentabilidad
+• Desperdicio por caducidad  
+• Rutas ineficientes  
+• Crédito informal  
+• Falta de datos de rentabilidad  
 
 **Resultado proyectado tras digitalización:**
 
-* **Desperdicio** ↓ 12%  
-* **Margen** ↑ 6%  
-* **Flujo de caja** ↑ 21%  
-* **Tiempos de entrega** ↓ 19%  
-* **Inteligencia para expansión habilitada**  
+• **Desperdicio** ↓ 12%  
+• **Margen** ↑ 6%  
+• **Flujo de caja** ↑ 21%  
+• **Tiempos de entrega** ↓ 19%  
+• **Inteligencia para expansión habilitada**  
 
 El sistema permite planificar escenarios y validar si conviene crecer hacia: más rutas, mayoristas, franquicia o integración productiva.
 
