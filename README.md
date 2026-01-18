@@ -2,6 +2,92 @@
 
 Sistema tecnológico y operativo modular para pollerías y negocios de distribución local. Incluye control de pedidos, inventario, rutas de entrega, base de datos de clientes y seguimiento financiero básico. Diseñado desde la operación real para convertir un negocio tradicional en un modelo eficiente, escalable y replicable.
 
+## ❗ Problemas Operativos del Negocio
+
+Los negocios de distribución alimentaria (pollerías, distribuidores locales, mini markets y restaurantes) enfrentan desafíos operativos que generan pérdidas económicas acumuladas:
+
+• **Producto perecedero sin control** → desperdicio por caducidad  
+• **Rutas de entrega improvisadas** → costos elevados de gasolina y retrasos  
+• **Crédito informal** → fugas de flujo de caja  
+• **Inventario incompleto** → faltantes en momentos críticos  
+• **Falta de trazabilidad** → difícil identificar dónde se pierde dinero  
+• **Sin datos históricos** → decisiones basadas en intuición  
+
+Estos factores combinados reducen significativamente el margen del negocio.
+
+---
+
+## 📈 Impacto Operativo Esperado
+
+PollosHermanos reduce ineficiencias operativas y habilita un modo de operación industrial basado en datos.
+
+**Ejemplos de mejora en base a casos reales del sector:**
+
+• **Desperdicio por caducidad** ↓ 8–15% mensual  
+• **Margen bruto por aprovechamiento total** ↑ 15–22%  
+• **Optimización de rutas** ↓ 10–18% en consumo de combustible  
+• **Ciclo de cobro y crédito** ↑ 20–30% flujo de caja  
+• **Rotación de inventario** ↑ 1.5–2.0×  
+• **Tiempo administrativo** ↓ 30–50%  
+
+---
+
+## 🧩 Visión de Integración Vertical
+
+PollosHermanos no sólo digitaliza el punto de venta. Permite escalar desde la operación básica hasta la integración vertical completa:
+
+**Etapa 1** — Venta minorista  
+**Etapa 2** — Distribución local  
+**Etapa 3** — Procesamiento propio  
+**Etapa 4** — Producción primaria (granjas)  
+**Etapa 5** — Modelo de franquicia o expansión regional  
+
+El software acompaña cada etapa sin obligar a migraciones ni reentrenamientos.
+
+---
+
+## 🎯 Posicionamiento Estratégico
+
+La mayoría del software existente se clasifica como:
+
+• POS para restaurantes  
+• Marketplaces  
+• Facturación  
+• ERPs genéricos  
+• Apps de inventario  
+
+Ninguno atiende el caso específico:
+
+**Producto perecedero + distribución + rutas + crédito + inteligencia de expansión**
+
+Este hueco de mercado es donde se sitúa PollosHermanos.
+
+---
+
+## 🧪 Caso Simulado de Operación
+
+**Negocio:** Distribuidora local  
+**Volumen:** 160 kg/día  
+**Margen inicial:** 17%  
+
+**Problemas detectados:**
+* Desperdicio por caducidad
+* Rutas ineficientes
+* Crédito informal
+* Falta de datos de rentabilidad
+
+**Resultado proyectado tras digitalización:**
+
+* **Desperdicio** ↓ 12%  
+* **Margen** ↑ 6%  
+* **Flujo de caja** ↑ 21%  
+* **Tiempos de entrega** ↓ 19%  
+* **Inteligencia para expansión habilitada**  
+
+El sistema permite planificar escenarios y validar si conviene crecer hacia: más rutas, mayoristas, franquicia o integración productiva.
+
+---
+
 ## 🐔 Filosofía de Crecimiento
 
 > **Cada parte del pollo es un recurso y debe ser aprovechada.**
